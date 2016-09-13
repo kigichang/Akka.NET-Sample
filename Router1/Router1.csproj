@@ -3,10 +3,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{9E6A0397-8DBF-41B6-828A-8E916F85363C}</ProjectGuid>
+    <ProjectGuid>{ACFB8AF2-91CF-4E4C-96DA-3C6D84BB11A0}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>PenguinJoke</RootNamespace>
-    <AssemblyName>PenguinJoke</AssemblyName>
+    <RootNamespace>Router1</RootNamespace>
+    <AssemblyName>Router1</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -19,6 +19,7 @@
     <WarningLevel>4</WarningLevel>
     <ExternalConsole>true</ExternalConsole>
     <PlatformTarget>x86</PlatformTarget>
+    <Commandlineparameters></Commandlineparameters>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <Optimize>true</Optimize>
@@ -43,14 +44,15 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Role.cs" />
-    <Compile Include="Question.cs" />
-    <Compile Include="Answer.cs" />
-    <Compile Include="Exceptions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PenguinJoke\PenguinJoke.csproj">
+      <Project>{9E6A0397-8DBF-41B6-828A-8E916F85363C}</Project>
+      <Name>PenguinJoke</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

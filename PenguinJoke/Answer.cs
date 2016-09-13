@@ -1,4 +1,6 @@
 ﻿using System;
+using Akka.Actor;
+
 namespace PenguinJoke.Answer
 {
 	/// <summary>
@@ -64,5 +66,63 @@ namespace PenguinJoke.Answer
 			return $"{Name}: {Message}";
 		}
 	}
+
+	/// <summary>
+	/// 回覆被詢問幾次
+	/// </summary>
+	public sealed class Counter
+	{
+		public string Name { get; private set; }
+
+		public int Count { get; private set; }
+
+		public Counter(string name, int count)
+		{
+			Name = name;
+			Count = count;
+		}
+
+		public override string ToString()
+		{
+			return $"{Name} is queried {Count}.";
+		}
+	}
+
+
+	public sealed class DontHitMe
+	{
+		public string Name { get; private set; }
+
+		public int Hits { get; private set; }
+
+		public DontHitMe(string name, int hits)
+		{
+			Name = name;
+			Hits = hits;
+		}
+
+		public override string ToString()
+		{
+			return $"{Name} is hit {Hits}";
+		}
+	}
+
+
+	public sealed class PenguinReady
+	{
+		public IActorRef Penguin { get; private set; }
+
+		public PenguinReady(IActorRef penguin)
+		{
+			Penguin = penguin;
+		}
+
+
+		public override string ToString()
+		{
+			return $"{Penguin.Path} ready!!!";
+		}
+	}
+
 }
 

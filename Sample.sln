@@ -10,6 +10,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Router1", "Router1\Router1.csproj", "{ACFB8AF2-91CF-4E4C-96DA-3C6D84BB11A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Router2", "Router2\Router2.csproj", "{65890F0E-08A6-4D03-986E-A0AF923F40C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -24,5 +28,13 @@ Global
 		{9E6A0397-8DBF-41B6-828A-8E916F85363C}.Debug|x86.Build.0 = Debug|x86
 		{9E6A0397-8DBF-41B6-828A-8E916F85363C}.Release|x86.ActiveCfg = Release|x86
 		{9E6A0397-8DBF-41B6-828A-8E916F85363C}.Release|x86.Build.0 = Release|x86
+		{ACFB8AF2-91CF-4E4C-96DA-3C6D84BB11A0}.Debug|x86.ActiveCfg = Debug|x86
+		{ACFB8AF2-91CF-4E4C-96DA-3C6D84BB11A0}.Debug|x86.Build.0 = Debug|x86
+		{ACFB8AF2-91CF-4E4C-96DA-3C6D84BB11A0}.Release|x86.ActiveCfg = Release|x86
+		{ACFB8AF2-91CF-4E4C-96DA-3C6D84BB11A0}.Release|x86.Build.0 = Release|x86
+		{65890F0E-08A6-4D03-986E-A0AF923F40C5}.Debug|x86.ActiveCfg = Debug|x86
+		{65890F0E-08A6-4D03-986E-A0AF923F40C5}.Debug|x86.Build.0 = Debug|x86
+		{65890F0E-08A6-4D03-986E-A0AF923F40C5}.Release|x86.ActiveCfg = Release|x86
+		{65890F0E-08A6-4D03-986E-A0AF923F40C5}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 EndGlobal

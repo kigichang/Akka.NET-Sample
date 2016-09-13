@@ -40,5 +40,66 @@ namespace PenguinJoke.Question
 			}
 		}
 	}
+
+	/// <summary>
+	/// 詢問被問了幾次
+	/// </summary>
+	public sealed class QueryCount
+	{
+		private static readonly QueryCount instance = new QueryCount();
+
+		private QueryCount()
+		{
+		}
+
+		public static QueryCount Instance
+		{
+			get
+			{
+				return instance;
+			}
+		}
+	}
+
+	/// <summary>
+	/// 殺掉其中一隻企鵝
+	/// </summary>
+	public sealed class KillOne
+	{
+		private static readonly KillOne instance = new KillOne();
+
+		private KillOne()
+		{
+		}
+
+		public static KillOne Instance
+		{
+			get
+			{
+				return instance;
+			}
+		}
+	}
+
+	/// <summary>
+	/// 打企鵝
+	/// </summary>
+	public sealed class Hit
+	{
+		private static readonly Hit instance = new Hit();
+
+		private Hit()
+		{
+		}
+
+		public static Hit Instance
+		{
+			get
+			{
+				return instance;
+			}
+		}
+	}
+
 }
 
