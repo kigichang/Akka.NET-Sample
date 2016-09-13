@@ -5,9 +5,10 @@ using Akka.Actor;
 
 namespace HelloWorld
 {
-	/**
-	 * An Immutable Message
-	 */
+	/// <summary>
+	/// ToWhom
+	/// An Immutable Message
+	/// </summary>
 	public sealed class ToWhom
 	{
 		public string Name { get; private set; }
@@ -34,6 +35,7 @@ namespace HelloWorld
 	{
 		public MyActor()
 		{
+			// register a handler for ToWhom message
 			Receive<ToWhom>(whom => Sender.Tell(new Response($"Hi {whom.Name}, Hello World")));
 		}
 
