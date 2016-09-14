@@ -57,6 +57,12 @@ namespace PenguinJoke.Role
 			Console.WriteLine($"{this} pre-start!!!");
 		}
 
+		protected override void PostStop()
+		{
+			base.PostStop();
+			Console.WriteLine($"{this} post-stop!!!");
+		}
+
 		public override string ToString()
 		{
 			return $"Actor Name: [{Name}] Path: [{Self.Path}]";
@@ -245,7 +251,7 @@ namespace PenguinJoke.Role
 				Decider.From(x =>
 				{
 					if (x is DontBotherMeException) return Directive.Resume;
-					else if (x is ExplosionException) return Directive.Restart;
+					else if (x is ExplosionException) return Directive.Resume;
 					else if (x is IamGodException) return Directive.Stop;
 					else return Directive.Escalate;
 				}));
@@ -264,12 +270,12 @@ namespace PenguinJoke.Role
 		{
 			for (int i = 0; i < PenguinCount - 1; i++)
 			{
-				var penguin = Context.ActorOf(Penguin.Props($"Penguin {i + 1}"));
+				var penguin = Context.ActorOf(Penguin.Props($"Penguin {i+1}"), $"penguin-{i+1}");
 
 				penguin.Tell(new Identify(penguin.Path), Self);
 			}
 
-			var dongdong = Context.ActorOf(DongDong.Props());
+			var dongdong = Context.ActorOf(DongDong.Props(), "penguin-dongdong");
 			dongdong.Tell(new Identify(dongdong.Path), Self);
 
 		}

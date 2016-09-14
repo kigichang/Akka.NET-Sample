@@ -15,11 +15,11 @@ namespace Router2
 		{
 			var system = ActorSystem.Create("Router2");
 
-			var router = system.ActorOf(PenguinRounter.Props());
+			var router = system.ActorOf(PenguinRounter.Props(), "penguin-router");
 
-			var king = system.ActorOf(PenguinKing.Props(10, router));
+			var king = system.ActorOf(PenguinKing.Props(10, router), "penguin-king");
 
-			var reporter = system.ActorOf(Reporter.Props());
+			var reporter = system.ActorOf(Reporter.Props(), "reporter");
 
 			Console.WriteLine("Press Enter to start sending message!!!");
 			Console.ReadLine();
