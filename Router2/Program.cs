@@ -21,21 +21,21 @@ namespace Router2
 
 			var reporter = system.ActorOf(Reporter.Props());
 
-
+			Console.WriteLine("Press Enter to start sending message!!!");
 			Console.ReadLine();
 
 			for (int i = 0; i < 100; i++)
 			{
 				router.Tell(Interest.Instance, reporter);
 			}
-			Console.ReadLine();
 
+			Console.ReadLine();
 			router.Tell(QueryCount.Instance, reporter);
-			Console.ReadLine();
 
+			Console.ReadLine();
 			router.Tell(KillOne.Instance, reporter);
-			Console.ReadLine();
 
+			Console.ReadLine();
 			Console.WriteLine("End !!!");
 		}
 	}

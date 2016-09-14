@@ -3,10 +3,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{ACFB8AF2-91CF-4E4C-96DA-3C6D84BB11A0}</ProjectGuid>
+    <ProjectGuid>{EE720CCB-395E-4EFC-821F-E53B21CE22B7}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Router1</RootNamespace>
-    <AssemblyName>Router1</AssemblyName>
+    <RootNamespace>Supervisor</RootNamespace>
+    <AssemblyName>Supervisor</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -19,7 +19,6 @@
     <WarningLevel>4</WarningLevel>
     <ExternalConsole>true</ExternalConsole>
     <PlatformTarget>x86</PlatformTarget>
-    <Commandlineparameters></Commandlineparameters>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <Optimize>true</Optimize>
@@ -47,7 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PenguinJoke\PenguinJoke.csproj">
