@@ -1,5 +1,4 @@
-﻿using System;
-using Akka.Actor;
+﻿using Akka.Actor;
 
 namespace PenguinJoke.Answer
 {
@@ -88,7 +87,9 @@ namespace PenguinJoke.Answer
 		}
 	}
 
-
+	/// <summary>
+	/// 回覆被 Hit 的次數
+	/// </summary>
 	public sealed class DontHitMe
 	{
 		public string Name { get; private set; }
@@ -107,7 +108,9 @@ namespace PenguinJoke.Answer
 		}
 	}
 
-
+	/// <summary>
+	/// 通知 PenguinRouter 已有一個 Penguin 可以指派任務
+	/// </summary>
 	public sealed class PenguinReady
 	{
 		public IActorRef Penguin { get; private set; }

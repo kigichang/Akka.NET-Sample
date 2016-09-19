@@ -1,6 +1,5 @@
 ﻿using System;
 
-using Akka;
 using Akka.Actor;
 using Akka.Routing;
 
@@ -25,8 +24,13 @@ namespace PenguinJoke.Role
 		public Penguin(string name)
 		{
 			Name = name;
+
+			/**
+			 * 以下註冊處理訊息的函式
+			 */
 			Receive<Interest>(interest =>
 			{
+				/* 處理詢問興趣 */
 				Console.WriteLine($"{Name} receive Interest!!");
 				count += 1;
 				Sender.Tell(new Three(Name, "吃飯", "睡覺", "打東東"), Self);
@@ -34,11 +38,13 @@ namespace PenguinJoke.Role
 
 			Receive<QueryCount>(query =>
 			{
+				/* 處理被詢問的次數訊息，回覆被詢問的次數 */
 				Sender.Tell(new Counter(Name, count), Self);
 			});
 
 			Receive<Hit>(hit =>
 			{
+				/* 處理被打的訊息，並回覆被打的次數 */
 				hits += 1;
 				Console.WriteLine($"{Name} got a Hit({hits})!!!");
 				Sender.Tell(new DontHitMe(Name, hits), Self);
@@ -99,6 +105,7 @@ namespace PenguinJoke.Role
 				hits += 1;
 				Console.WriteLine($"{Name} got a Hit({hits})!!!");
 
+				/* 以下模擬發生不同的 Exception 情形，用來測試 Supervisor Strategy */
 				if (hits == 4)
 				{
 					throw new DontBotherMeException();
@@ -152,8 +159,10 @@ namespace PenguinJoke.Role
 			// 收到為什麼的回覆
 			Receive<Because>(because => Console.WriteLine(because));
 
+			// 收到企鵝回覆被詢問的次數
 			Receive<Counter>(counter => Console.WriteLine(counter));
 
+			// 收到企鵝回覆被打的次數
 			Receive<DontHitMe>(hit => Console.WriteLine(hit));
 		}
 
@@ -174,7 +183,9 @@ namespace PenguinJoke.Role
 		}
 	}
 
-
+	/// <summary>
+	/// 企鵝 Router, 負責派送訊息
+	/// </summary>
 	public class PenguinRounter : ReceiveActor
 	{
 		private Router router = new Router(new RoundRobinRoutingLogic());
@@ -188,6 +199,9 @@ namespace PenguinJoke.Role
 		{
 			Receive<PenguinReady>(ready =>
 			{
+				/* 當有企鵝準備好時，用 Watch 來追蹤。
+				 * 當某個企鵝死掉時，Router 會收到 Terminated 訊息，可做後續的處理 
+				 */
 				Context.Watch(ready.Penguin);
 				router = router.AddRoutee(ready.Penguin);
 				Console.WriteLine($"Penguin Router watch {ready.Penguin.Path}");
@@ -224,11 +238,11 @@ namespace PenguinJoke.Role
 				var enumerator = router.Routees.GetEnumerator();
 				if (enumerator.MoveNext())
 				{
+					/* 停用第一隻企鵝。傳送 PoisonPill 可以停用某個 Actor */
 					enumerator.Current.Send(PoisonPill.Instance, Self);
 				}
 
 			});
-
 		}
 
 		public static Props Props()
@@ -237,6 +251,9 @@ namespace PenguinJoke.Role
 		}
 	}
 
+	/// <summary>
+	/// 企鵝王，負責產生子企鵝，並管理
+	/// </summary>
 	public class PenguinKing : ReceiveActor
 	{
 		public int PenguinCount { get; private set; }
@@ -266,12 +283,16 @@ namespace PenguinJoke.Role
 			Deploy();
 		}
 
+		/**
+		 * 產生子企鵝 (actor)
+		 */
 		private void Deploy()
 		{
 			for (int i = 0; i < PenguinCount - 1; i++)
 			{
 				var penguin = Context.ActorOf(Penguin.Props($"Penguin {i+1}"), $"penguin-{i+1}");
 
+				/* 使用 Identify 訊息，來追蹤子企鵝 (actor) 是否可以使用 */
 				penguin.Tell(new Identify(penguin.Path), Self);
 			}
 
@@ -282,6 +303,9 @@ namespace PenguinJoke.Role
 
 		private void Handler()
 		{
+			/* 對 Actor 傳送 Identify 訊息，
+			 * 如果該 Actor 可以被使用，則會回傳 ActorIdentity 訊息。
+			 */
 			Receive<ActorIdentity>(id =>
 			{
 				if (id.Subject == null)

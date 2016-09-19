@@ -11,6 +11,9 @@ using PenguinJoke.Role;
                  
 namespace Router1
 {
+	/**
+	 * 最直接使用 Router 的方式
+	 */ 
 	class MainClass
 	{
 		public static void Main(string[] args)

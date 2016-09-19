@@ -1,9 +1,7 @@
 ﻿using System;
 
-using Akka;
 using Akka.Actor;
 using PenguinJoke.Role;
-using PenguinJoke.Answer;
 using PenguinJoke.Question;
 
 namespace Supervisor
