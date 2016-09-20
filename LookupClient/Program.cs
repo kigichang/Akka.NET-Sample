@@ -8,8 +8,10 @@ namespace LookupClient
 		private int Count = 0;
 		private int Size = 0;
 
-
-
+		/// <summary>
+		/// Initializes a new instance of the <see cref="T:LookupClient.LookupReporter"/> class.
+		/// </summary>
+		/// <param name="path">遠端企鵝 (Actor) 的 URL</param>
 		public LookupReporter(string[] path)
 		{
 			Size = path.Length;
@@ -25,6 +27,7 @@ namespace LookupClient
 
 		private void TrackingReceive()
 		{
+			/* 當遠端的 Actor 是 ready 時，ActorIdentity.Subject 不會是 null */
 			Receive<ActorIdentity>(id =>
 			{
 				Count += 1;
@@ -44,9 +47,17 @@ namespace LookupClient
 					id.Subject.Tell(PenguinJoke.Question.Interest.Instance, Self);
 				}
 			});
+
+			Receive<Terminated>(term =>
+			{
+				Console.WriteLine($"{term.ActorRef.Path} is terminated");
+			});
 		}
 
-
+		/// <summary>
+		/// 透過遠端企鵝的 URL 來詢問遠端的企鵝是否 ready
+		/// </summary>
+		/// <param name="path">Path.</param>
 		private void SendIdentifyRequest(string[] path)
 		{
 			foreach (string p in path)

@@ -15,7 +15,9 @@ namespace LookupServer
 
 			var system = ActorSystem.Create("LookupServer");
 
-
+			/*
+			 * 產生 10 隻企鵝，供 Lookup Client 呼叫
+			 */
 			var penguins = new IActorRef[10];
 
 			int i = 1;

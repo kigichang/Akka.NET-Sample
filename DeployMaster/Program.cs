@@ -45,6 +45,9 @@ namespace DeployMaster
 
 			var reporter = system.ActorOf(DeployReporter.Props(), "reporter");
 
+			/* 重點：指定 Penguin King 的 Actor 名稱，再配合 app.config 內的設定，
+			 * 會在 DeployNode 上，啟動 Penguin King 產生的子 Actor
+			 */
 			var king = system.ActorOf(PenguinKing.Props(10, reporter), "penguin-king");
 
 			Console.ReadLine();
