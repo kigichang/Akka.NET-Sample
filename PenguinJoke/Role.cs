@@ -258,6 +258,8 @@ namespace PenguinJoke.Role
 	{
 		public int PenguinCount { get; private set; }
 
+		private int Count = 0;
+
 		private IActorRef Router;
 
 		protected override SupervisorStrategy SupervisorStrategy()
@@ -278,7 +280,7 @@ namespace PenguinJoke.Role
 		{
 			PenguinCount = count;
 			Router = router;
-
+			Console.WriteLine($"Router is {router.Path}");
 			Handler();
 			Deploy();
 		}
@@ -299,6 +301,7 @@ namespace PenguinJoke.Role
 			var dongdong = Context.ActorOf(DongDong.Props(), "penguin-dongdong");
 			dongdong.Tell(new Identify(dongdong.Path), Self);
 
+			Context.SetReceiveTimeout(TimeSpan.FromSeconds(5.0));
 		}
 
 		private void Handler()
@@ -308,13 +311,19 @@ namespace PenguinJoke.Role
 			 */
 			Receive<ActorIdentity>(id =>
 			{
+				Count += 1;
+				if (Count == PenguinCount)
+				{
+					Context.SetReceiveTimeout(null);
+				}
+
+
 				if (id.Subject == null)
 				{
 					Console.WriteLine($"{id.MessageId} Not Found!!!");
 				}
 				else {
-					Console.WriteLine($"{id.MessageId} Found!!!");
-
+					Console.WriteLine($"{id.MessageId} Found and Tell Router Penguin Ready!!!");
 					Router.Tell(new PenguinReady(id.Subject), Self);
 				}
 			});
