@@ -188,8 +188,8 @@ namespace PenguinJoke.Role
 	/// </summary>
 	public class PenguinRounter : ReceiveActor
 	{
-		//private Router router = new Router(new RoundRobinRoutingLogic());
-		private Router router = new Router(new SmallestMailboxRoutingLogic());
+		private Router router = new Router(new RoundRobinRoutingLogic());
+		//private Router router = new Router(new SmallestMailboxRoutingLogic());
 
 		public PenguinRounter()
 		{
@@ -266,12 +266,13 @@ namespace PenguinJoke.Role
 		protected override SupervisorStrategy SupervisorStrategy()
 		{
 			return new OneForOneStrategy( //or AllForOneStrategy
+			//return new AllForOneStrategy(
 				10,
 				TimeSpan.FromSeconds(30),
 				Decider.From(x =>
 				{
 					if (x is DontBotherMeException) return Directive.Resume;
-					else if (x is ExplosionException) return Directive.Resume;
+					else if (x is ExplosionException) return Directive.Restart;
 					else if (x is IamGodException) return Directive.Stop;
 					else return Directive.Escalate;
 				}));
