@@ -101,5 +101,23 @@ namespace PenguinJoke.Question
 		}
 	}
 
+	public sealed class End
+	{
+		private static readonly End instance = new End();
+
+		private End()
+		{
+		}
+
+		public static End Instance
+		{
+			get
+			{
+				return instance;
+			}
+		}
+
+	}
+
 }
 

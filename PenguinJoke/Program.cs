@@ -36,10 +36,13 @@ namespace PenguinJoke
 			foreach (IActorRef penguin in penguins)
 			{
 				penguin.Tell(Interest.Instance, reporter);
+				penguin.Tell(End.Instance, reporter);
 			}
 
 
-			Console.ReadLine();
+			//Console.ReadLine();
+			system.WhenTerminated.Wait(); 
+
 			Console.WriteLine("End!!!");
 		}
 	}

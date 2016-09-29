@@ -49,6 +49,8 @@ namespace PenguinJoke.Role
 				Console.WriteLine($"{Name} got a Hit({hits})!!!");
 				Sender.Tell(new DontHitMe(Name, hits), Self);
 			});
+
+			Receive<End>(end => Sender.Tell(End.Instance, Self));
 		}
 
 		public static Props Props(string name)
@@ -123,6 +125,8 @@ namespace PenguinJoke.Role
 				}
 
 			});
+
+			Receive<End>(end => Sender.Tell(End.Instance, Self));
 		}
 
 		public DongDong() : base("東東")
@@ -143,6 +147,7 @@ namespace PenguinJoke.Role
 	/// </summary>
 	public class Reporter : ReceiveActor
 	{
+		private int EndCount = 0;
 
 		public Reporter()
 		{
@@ -164,6 +169,15 @@ namespace PenguinJoke.Role
 
 			// 收到企鵝回覆被打的次數
 			Receive<DontHitMe>(hit => Console.WriteLine(hit));
+
+			Receive<End>(end =>
+			{
+				EndCount += 1;
+				if (EndCount == 10)
+				{
+					Context.System.Terminate();
+				}
+			});
 		}
 
 		public static Props Props()
@@ -265,8 +279,8 @@ namespace PenguinJoke.Role
 
 		protected override SupervisorStrategy SupervisorStrategy()
 		{
-			return new OneForOneStrategy( //or AllForOneStrategy
-			//return new AllForOneStrategy(
+			//return new OneForOneStrategy( //or AllForOneStrategy
+			return new AllForOneStrategy(
 				10,
 				TimeSpan.FromSeconds(30),
 				Decider.From(x =>
