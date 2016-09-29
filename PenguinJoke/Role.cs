@@ -188,7 +188,8 @@ namespace PenguinJoke.Role
 	/// </summary>
 	public class PenguinRounter : ReceiveActor
 	{
-		private Router router = new Router(new RoundRobinRoutingLogic());
+		//private Router router = new Router(new RoundRobinRoutingLogic());
+		private Router router = new Router(new SmallestMailboxRoutingLogic());
 
 		public PenguinRounter()
 		{
